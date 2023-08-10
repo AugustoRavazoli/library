@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}">
+  <title>Document</title>
+</head>
+<body class="container">
+
+	<header class="navbar bg-dark mb-10 p-2">
+  		<h1 class="h2 ms-3 text-light">Bem vindo</h1>
+  		<a th:href="@{/list-books}">Livros</a>
+  		<a th:href="@{/list-categories}">Categorias</a>
+  		<form class="me-3" th:action="@{/logout}" method="post">
+  			<button class="px-4 btn btn-danger" type="Submit">Sair</button>
+  		</form>	
+	</header>
+  	
+  	<div class="container text-center mt-5 mb-5">
+	  	<div class="row align-items-center gap-5">
+	  		<a class="col btn btn-success" th:href="@{/create-book}">Cadastrar livro</a>
+	  		<form class="col row form-inline" th:action="@{/list-books}" method="get">
+	  			<input class="col form-control border-dark" name="title">
+	  			<button class="ms-4 col-3 btn btn-warning" type="submit">Buscar livro</button>
+	  		</form>
+	  	</div> 
+  	</div> 	
+  	
+  	<table class="table table-bordered mb-5">
+  		<thead class="table-dark">
+  			<tr>
+  				<th>Título</th>
+  				<th>Descrição</th>
+  				<th>Categoria</th>
+  				<th style="width: 30%">Ações</th>
+  			</tr>
+  		</thead>
+  		<tbody>
+ 			<tr th:each="book : ${books}">
+  				<td class="text-center" th:text="${book.title}"></td>
+  				<td class="text-center" th:text="${book.description}"></td>
+  				<td class="text-center" th:text="${book.category}"></td>
+  				<td>
+  					<div class="d-flex justify-content-evenly">
+	 					<a class="btn btn-primary" th:href="@{/edit-book/__${book.id}__}">Editar livro</a>
+	 				  	<form th:action="@{/delete-book/__${book.id}__}" method="post">
+	 				  		<button class="btn btn-danger" type="submit">Deletar livro</button>
+	 				  	</form>
+  					</div>
+  				</td>
+  			</tr>
+  		</tbody>
+  	</table>
+  	
+	<nav class="mx-auto" style="width: 300px" aria-label="Page navigation example">
+		<ul class="pagination">
+			<li class="page-item">
+				<a class="page-link" th:href="@{/list-books?page=0}">
+				 	<span aria-hidden="true">&laquo;</span>
+				</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" th:if="${currentPage > 0}" th:href="@{'/list-books?page=__${currentPage - 1}__'}">
+					<span aria-hidden="true">&lsaquo;</span>
+				</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" th:if="${currentPage < totalPages - 1}" th:href="@{'/list-books?page=__${currentPage + 1}__'}">
+					<span aria-hidden="true">&rsaquo;</span>
+				</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" th:if="${currentPage < totalPages - 1}" th:href="@{'/list-books?page=__${totalPages - 1}__'}">
+					<span aria-hidden="true">&raquo;</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+	  	
+</body>
+</html>

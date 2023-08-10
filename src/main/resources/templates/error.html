@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}">
+  <title>Document</title>
+</head>
+<body>
+
+	<main class="d-flex flex-column align-items-center justify-content-center vh-100 text-center">
+    <h1 class="display-1 fw-bold" th:text="${status != 999} ? ${status} : 418"></h1>
+    <p class="fs-3" th:text="${error != 'None'} ? ${error} : 'I\'m a teapot'">I'm a Teapot</p>
+	</main>
+ 
+</body>
+</html>
