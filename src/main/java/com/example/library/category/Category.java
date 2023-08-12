@@ -13,21 +13,21 @@ import com.example.library.user.User;
 
 @Entity
 @Table(
-	name = "category",
-	uniqueConstraints = @UniqueConstraint(columnNames = { "name", "owner_id" })
+  name = "category",
+  uniqueConstraints = @UniqueConstraint(columnNames = { "name", "owner_id" })
 )
 public class Category {
 	
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	private Long id;
+  @Id
+  @GeneratedValue(strategy = IDENTITY)
+  private Long id;
 
-	@Column(nullable = false)
-	private String name;
+  @Column(nullable = false)
+  private String name;
 	
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "owner_id")
-	private User owner;
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "owner_id")
+  private User owner;
 
   public Category() {}
 
@@ -35,24 +35,24 @@ public class Category {
     this.name = name;
   }
 	
-	public Long getId() {
-		return id;
-	}
+  public Long getId() {
+    return id;
+  }
 		
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+    return name;
+  }
 	
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 	
-	public User getOwner() {
-		return owner;
-	}
+  public User getOwner() {
+    return owner;
+  }
 	
-	public void setOwner(User owner) {
-		this.owner = owner;
-	}
-	
+  public void setOwner(User owner) {
+    this.owner = owner;
+  }
+
 }

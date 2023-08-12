@@ -10,16 +10,16 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
   boolean existsByIdAndOwner(long id, User owner);
 			
-	boolean existsByTitleAndOwner(String title, User owner);
+  boolean existsByTitleAndOwner(String title, User owner);
 
   boolean existsByCategoryId(long id);
 	
-	Optional<Book> findByIdAndOwner(long id, User owner);
+  Optional<Book> findByIdAndOwner(long id, User owner);
 	
-	Page<Book> findAllByOwner(User owner, Pageable pageable);
+  Page<Book> findAllByOwner(User owner, Pageable pageable);
+
+  Page<Book> findAllByTitleContainingIgnoreCaseAndOwner(String title, User owner, Pageable pageable);
 	
-	Page<Book> findAllByTitleContainingIgnoreCaseAndOwner(String title, User owner, Pageable pageable);
-	
-	void deleteByIdAndOwner(long id, User owner);
+  void deleteByIdAndOwner(long id, User owner);
 
 }

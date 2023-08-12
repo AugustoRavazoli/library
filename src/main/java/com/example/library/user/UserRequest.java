@@ -4,11 +4,11 @@ import jakarta.validation.constraints.NotBlank;
 
 public class UserRequest {
 
-	@NotBlank(message = "Nome não pode estar em branco")
-	private String username;
+  @NotBlank(message = "Nome não pode estar em branco")
+  private String username;
 	
-	@NotBlank(message = "Senha não pode estar em branco")
-	private String password;
+  @NotBlank(message = "Senha não pode estar em branco")
+  private String password;
 
   public String getUsername() {
     return username;

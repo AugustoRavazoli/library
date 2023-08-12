@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(BAD_REQUEST)
 public class CategoryMismatchException extends RuntimeException {
 
-	private static final long serialVersionUID = 968696003337997975L;
+  private static final long serialVersionUID = 968696003337997975L;
 
 }

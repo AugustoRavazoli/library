@@ -9,10 +9,10 @@
 </head>
 <body>
 
-	<main class="d-flex flex-column align-items-center justify-content-center vh-100 text-center">
+  <main class="d-flex flex-column align-items-center justify-content-center vh-100 text-center">
     <h1 class="display-1 fw-bold" th:text="${status != 999} ? ${status} : 418"></h1>
     <p class="fs-3" th:text="${error != 'None'} ? ${error} : 'I\'m a teapot'">I'm a Teapot</p>
-	</main>
+  </main>
  
 </body>
 </html>

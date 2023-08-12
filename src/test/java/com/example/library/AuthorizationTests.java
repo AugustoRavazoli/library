@@ -1,27 +1,29 @@
 package com.example.library;
 
 import java.util.stream.Stream;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.options;
+
 import static org.hamcrest.Matchers.not;
 
 @SpringBootTest
 @ActiveProfiles("test")
 class AuthorizationTests extends EndpointsTestTemplate {
 	
-	private static Stream<Arguments> provideAllowedUrlsForAnyUser() {
-		return Stream.of(
-			Arguments.of("/error")
-		);
-	}
+  private static Stream<Arguments> provideAllowedUrlsForAnyUser() {
+    return Stream.of(
+      Arguments.of("/error")
+    );
+  }
 
   private static Stream<Arguments> provideAllowedUrlsForAnonymousUser() {
     return Stream.of(
@@ -29,7 +31,7 @@ class AuthorizationTests extends EndpointsTestTemplate {
       Arguments.of("/register"),
       Arguments.of("/login")
     );
-  };
+  }
 
   private static Stream<Arguments> provideAllowedUrlsForAuthenticatedUser() {
     return Stream.of(
@@ -43,7 +45,7 @@ class AuthorizationTests extends EndpointsTestTemplate {
       Arguments.of("/delete-category"),
       Arguments.of("/logout")
     );
-  };
+  }
 
   @ParameterizedTest
   @MethodSource({ "provideAllowedUrlsForAnonymousUser", "provideAllowedUrlsForAnyUser"})

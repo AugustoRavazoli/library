@@ -9,46 +9,50 @@
 </head>
 <body class="container">
 
-	<header class="navbar bg-dark mb-10 p-2">
-  		<h1 class="h2 ms-3 text-light">Bem vindo</h1>
-  		<a th:href="@{/list-books}">Livros</a>
-  		<a th:href="@{/list-categories}">Categorias</a>
-  		<form class="me-3" th:action="@{/logout}" method="post">
-  			<button class="px-4 btn btn-danger" type="Submit">Sair</button>
-  		</form>	
-	</header>
+  <header class="navbar bg-dark mb-10 p-2">
+    <h1 class="h2 ms-3 text-light">Bem vindo</h1>
+    <a th:href="@{/list-books}">Livros</a>
+    <a th:href="@{/list-categories}">Categorias</a>
+    <form class="me-3" th:action="@{/logout}" method="post">
+      <button class="px-4 btn btn-danger" type="Submit">Sair</button>
+    </form>	
+  </header>
 	
-	<div class="container text-center mt-5 mb-5">
-	  	<div class="row align-items-center gap-5">
-	  		<a class="col btn btn-success" th:href="@{/create-category}">Adicionar categoria</a>
-	  	</div> 
-  	</div> 
+  <div class="container text-center mt-5 mb-5">
+    <div class="row align-items-center gap-5">
+      <a class="col btn btn-success" th:href="@{/create-category}">Adicionar categoria</a>
+    </div> 
+  </div> 
   	
-  	<table class="table table-bordered mb-5">
-  		<thead class="table-dark">
-  			<tr>
-  				<th>Categoria</th>
-  				<th style="width: 50%">Ações</th>
-  			</tr>
-  		</thead>
-  		<tbody>
- 			  <tr th:each="category : ${categories}">
-  				<td class="text-center" th:text="${category.name}"></td>
-  				<td>
-  					<div class="d-flex justify-content-evenly">
-	 					<a class="btn btn-primary" th:href="@{/edit-category/__${category.id}__}">Editar categoria</a>
-	 				  	<form th:action="@{/delete-category/__${category.id}__}" method="post">
-	 				  		<button class="btn btn-danger" type="submit">Deletar categoria</button>
-	 				  	</form>
-  					</div>
-  				</td>
-  			</tr>
-  		</tbody>
-  	</table>
+  <table class="table table-bordered mb-5">
+
+    <thead class="table-dark">
+      <tr>
+        <th>Categoria</th>
+        <th style="width: 50%">Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr th:each="category : ${categories}">
+        <td class="text-center" th:text="${category.name}"></td>
+        <td>
+          <div class="d-flex justify-content-evenly">
+            <a class="btn btn-primary" th:href="@{/edit-category/__${category.id}__}">Editar categoria</a>
+            <form th:action="@{/delete-category/__${category.id}__}" method="post">
+              <button class="btn btn-danger" type="submit">Deletar categoria</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
 	  	
-    <script th:if="${deleteError != null}">
-      var message = "[[${deleteError}]]";
-      window.onload = event => alert(message);
-    </script>
+  <script th:if="${deleteError != null}">
+    var message = "[[${deleteError}]]";
+    window.onload = event => alert(message);
+  </script>
+
 </body>
 </html>

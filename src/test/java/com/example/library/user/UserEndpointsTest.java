@@ -1,6 +1,7 @@
 package com.example.library.user;
 
 import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -25,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.hasProperty;
+
 import com.example.library.EndpointsTestTemplate;
 
 @SpringBootTest
@@ -130,62 +132,62 @@ class UserEndpointsTest extends EndpointsTestTemplate {
   @DisplayName("User login tests")
   class LoginUserEndpointTests {
   	
-  	@Test
-  	@DisplayName("Retrieve login page")
-  	void retrieveLoginPage() throws Exception {
-  		// when
-  		client.perform(get("/login"))
-  		// then
-  		.andExpectAll(
-  			status().isOk(),
-  			view().name("user/login")
-  		);
-  	}
+    @Test
+    @DisplayName("Retrieve login page")
+    void retrieveLoginPage() throws Exception {
+      // when
+      client.perform(get("/login"))
+      // then
+      .andExpectAll(
+        status().isOk(),
+        view().name("user/login")
+      );
+    }
   	
-  	@Test
-  	@DisplayName("Login user")
-  	void loginUser() throws Exception {
-  		// given
-  		userRepository.save(new User("username", passwordEncoder.encode("password")));
-  		// when
-  		client.perform(post("/login")
-  			.param("username", "username")
+    @Test
+    @DisplayName("Login user")
+    void loginUser() throws Exception {
+      // given
+      userRepository.save(new User("username", passwordEncoder.encode("password")));
+      // when
+      client.perform(post("/login")
+        .param("username", "username")
         .param("password", "password")
         .with(csrf())
-  		)
-  		// then
-  		.andExpectAll(
-  			status().isFound(),
-  			redirectedUrl("/list-books")
-  		);
-  	}
+      )
+      // then
+      .andExpectAll(
+        status().isFound(),
+        redirectedUrl("/list-books")
+      );
+    }
   	
-  	private static Stream<Arguments> provideUsernameAndPassword() {
+    private static Stream<Arguments> provideUsernameAndPassword() {
       return Stream.of(
-      	Arguments.of("username", "pass"),
+        Arguments.of("username", "pass"),
         Arguments.of("usr", "password"),
         Arguments.of("usr", "pass")
       );
-  	}
+    }
   	
-  	@ParameterizedTest
-  	@MethodSource("provideUsernameAndPassword")
-  	@DisplayName("Don't login user with invalid username or password")
-  	void DoNotLoginUserWithInvalidUsernameOrPassword(String username, String password) throws Exception {
-  		// given
-  		userRepository.save(new User("username", passwordEncoder.encode("password")));
-  		// when
-  		client.perform(post("/login")
+    @ParameterizedTest
+    @MethodSource("provideUsernameAndPassword")
+    @DisplayName("Don't login user with invalid username or password")
+    void DoNotLoginUserWithInvalidUsernameOrPassword(String username, String password) throws Exception {
+      // given
+      userRepository.save(new User("username", passwordEncoder.encode("password")));
+      // when
+      client.perform(post("/login")
         .param("username", username)
         .param("password", password)
         .with(csrf())
-  		)
-  		// then
-  		.andExpectAll(
-  			status().isFound(),
-  			redirectedUrl("/login?error")
-  		);
-  	}
+      )
+      // then
+      .andExpectAll(
+        status().isFound(),
+        redirectedUrl("/login?error")
+      );
+    }
   
   }
   
@@ -193,17 +195,17 @@ class UserEndpointsTest extends EndpointsTestTemplate {
   @DisplayName("User logout tests")
   class LogoutUserEndpointTests {
   	
-  	@Test
-  	@DisplayName("Logout user")
-  	void logoutUser() throws Exception {
-  		// when
-  		client.perform(post("/logout").with(csrf()))
-  		// then
-  		.andExpectAll(
-  			status().isFound(),
-  			redirectedUrl("/login?logout")
-  		);
-  	}
+    @Test
+    @DisplayName("Logout user")
+    void logoutUser() throws Exception {
+      // when
+      client.perform(post("/logout").with(csrf()))
+      // then
+      .andExpectAll(
+        status().isFound(),
+        redirectedUrl("/login?logout")
+      );
+    }
   	
   }
 

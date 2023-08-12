@@ -3,8 +3,10 @@ package com.example.library.category;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
+
 import com.example.library.book.BookRepository;
 import com.example.library.user.User;
 
@@ -14,40 +16,40 @@ public class CategoryService {
 
   private static final Logger logger = LoggerFactory.getLogger(CategoryService.class);
 	
-	private final CategoryRepository categoryRepository;
+  private final CategoryRepository categoryRepository;
   private final BookRepository bookRepository;
 	
-	public CategoryService(CategoryRepository categoryRepository, BookRepository bookRepository) {
-		this.categoryRepository = categoryRepository;
+  public CategoryService(CategoryRepository categoryRepository, BookRepository bookRepository) {
+    this.categoryRepository = categoryRepository;
     this.bookRepository = bookRepository;
-	}
+  }
 	
-	public void createCategory(Category category, User owner) {
-		if (categoryRepository.existsByNameAndOwner(category.getName(), owner)) {
-			throw new CategoryAlreadyExistsException("Esta categoria já existe");
-		}
-		category.setOwner(owner);
-		categoryRepository.save(category);
+  public void createCategory(Category category, User owner) {
+    if (categoryRepository.existsByNameAndOwner(category.getName(), owner)) {
+      throw new CategoryAlreadyExistsException("Esta categoria já existe");
+    }
+    category.setOwner(owner);
+    categoryRepository.save(category);
     logger.info("Category {} created for user {}", category.getName(), owner.getUsername());
-	}
+  }
 
   public Category findCategory(long id, User owner) {
     return categoryRepository.findByIdAndOwner(id, owner)
       .orElseThrow(CategoryNotFoundException::new);
   }
 
-	public List<Category> listCategories(User owner) {
-		return categoryRepository.findAllByOwner(owner);
-	}
+  public List<Category> listCategories(User owner) {
+    return categoryRepository.findAllByOwner(owner);
+  }
 
   public void editCategory(long id, Category newCategory, User owner) {
     categoryRepository.findByIdAndOwner(id, owner)
       .map(category -> {
-		    if (categoryRepository.existsByNameAndOwner(newCategory.getName(), owner)
+        if (categoryRepository.existsByNameAndOwner(newCategory.getName(), owner)
           && !category.getName().equals(newCategory.getName())
         ) {
-		    	throw new CategoryAlreadyExistsException("Esta categoria já existe");
-		    }
+          throw new CategoryAlreadyExistsException("Esta categoria já existe");
+        }
         category.setName(newCategory.getName());
         return categoryRepository.save(category);
       })
